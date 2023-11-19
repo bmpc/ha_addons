@@ -193,7 +193,12 @@ def dummy_auth_function(server, session, envelope, mechanism, auth_data):
 if __name__ == "__main__":
     if (log.isEnabledFor(logging.DEBUG)):
         log.debug(", ".join([f"{k}={v}" for k, v in config.items()]), extra={'uuid': 'main thread'})
+    
+    log.debug("Starting app...", extra={'log_level': level})
 
+    mail_log = logging.getLogger("mail.log")
+    mail_log.setLevel(level)
+    
     loop = asyncio.new_event_loop()
     asyncio.set_event_loop(loop)
     c = Controller(
@@ -207,9 +212,6 @@ if __name__ == "__main__":
         auth_require_tls=(not config["SMTP_AUTH_REQUIRED"]),
     )
     c.start()
-
-    mail_log = logging.getLogger("mail.log")
-    mail_log.setLevel(level)
 
     log.info("Running", extra={'uuid': 'main thread'})
     try:
