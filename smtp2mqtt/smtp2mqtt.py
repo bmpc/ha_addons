@@ -195,6 +195,7 @@ if __name__ == "__main__":
         log.debug(", ".join([f"{k}={v}" for k, v in config.items()]), extra={'uuid': 'main thread'})
     
     log.debug("Starting app...", extra={'log_level': level})
+    log.info("##########################################################")
 
     mail_log = logging.getLogger("mail.log")
     mail_log.setLevel(level)
