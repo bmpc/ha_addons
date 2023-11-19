@@ -207,6 +207,10 @@ if __name__ == "__main__":
         auth_require_tls=(not config["SMTP_AUTH_REQUIRED"]),
     )
     c.start()
+
+    mail_log = logging.getLogger("mail.log")
+    mail_log.setLevel(level)
+
     log.info("Running", extra={'uuid': 'main thread'})
     try:
         while not c.handler.quit:
